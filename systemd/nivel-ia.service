@@ -1,0 +1,9 @@
+[Unit]
+Description=nivel-ia: mede a escada AL1-AL5 nos logs e atualiza registro/relatorio.md
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'python3 -I @RAIZ@/medir/nivel.py varrer --dias 30 && python3 -I @RAIZ@/medir/nivel.py relatorio > /dev/null'
+MemoryMax=4G
+TimeoutStartSec=900
+Nice=10

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha da escada AL1–AL5</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Sora", system-ui, sans-serif; color: #0c0c10; background: #fff; margin: 0; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { font-size: 12px; color: #444; margin: 0 0 10px; }
+  .escada { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
+  .degrau { border: 1.5px solid #0c0c10; border-radius: 6px; padding: 6px 8px; font-size: 11px; line-height: 1.35; }
+  .degrau b { display: block; font-size: 13px; }
+  .degrau:nth-child(5) { background: #FACC15; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #0c0c10; color: #fff; text-align: left; padding: 6px; font-weight: 600; }
+  td { border: 1px solid #999; height: 26px; padding: 2px 6px; }
+  .rodape { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 11px; margin-top: 10px; line-height: 1.4; }
+  .rodape div { border: 1px dashed #999; border-radius: 6px; padding: 6px 8px; }
+  .marca { font-size: 10px; color: #666; margin-top: 8px; }
+  @media print { body { padding: 0; } }
+</style>
+</head>
+<body>
+<h1>Ficha da escada: em que degrau está cada tarefa?</h1>
+<p class="sub">Uma linha cada vez que fizer uma tarefa. Crítica = um erro causa prejuízo público, financeiro ou de segurança (publicar, cliente, dinheiro, servidor, e-mail). Quando mudar de degrau, a conta daquela tarefa recomeça. As colunas são as mesmas do medidor automático do kit, para quem quiser digitar depois.</p>
+
+<div class="escada">
+  <div class="degrau"><b>AL1 · Você faz sozinho</b>A IA não entra.</div>
+  <div class="degrau"><b>AL2 · A IA ajuda</b>Você pergunta, ela responde, você faz.</div>
+  <div class="degrau"><b>AL3 · A IA colabora</b>Juntos, passo a passo. Você conduz.</div>
+  <div class="degrau"><b>AL4 · A IA conduz</b>Ela prepara tudo, você revisa antes de sair.</div>
+  <div class="degrau"><b>AL5 · Roda sozinha</b>Timer, regra e alarme, sem você no meio.</div>
+</div>
+
+<table>
+  <thead><tr><th style="width:10%">Data<br><small>dd/mm/aaaa</small></th><th style="width:24%">Tarefa</th><th style="width:7%">Crítica?<br><small>s / n</small></th><th style="width:8%">Degrau<br><small>1 a 5</small></th><th style="width:7%">Minutos</th><th style="width:20%">Conexão usada<br><small>qual IA, programa, site, e-mail ou pasta</small></th><th style="width:13%">Corrigi?<br><small>n = não · p = pequena · g = grande ou não ajudou</small></th><th style="width:11%">Erro grave?<br><small>s / n</small></th></tr></thead>
+  <tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="rodape">
+  <div><b>Subir um degrau</b> (uma tarefa por vez; quem decide é você, olhando esta ficha):<br>
+    AL1→AL2: sem critério, comece a perguntar à IA e anote AL2.<br>
+    AL2→AL3: nas últimas 10 vezes, no máximo 1 com g.<br>
+    AL3→AL4: nas últimas 20 vezes, no máximo 2 com g.<br>
+    AL4→AL5: nas últimas 50 vezes, no máximo 2 com g e nenhum erro grave; com horário, alarme e volta. Tarefa crítica (publicar, cliente, dinheiro, servidor, e-mail) para no AL4.</div>
+  <div><b>Descer um degrau</b> naquela tarefa:<br>
+    1 erro grave (saiu errado para fora, perdeu dado, gastou o que não devia),<br>
+    ou 3 vezes com g nas últimas 10,<br>
+    ou mudou a ferramenta ou o processo.<br>
+    Anote o motivo. Descer é o registro funcionando.</div>
+</div>
+<p class="marca">nivel-ia · kit aberto e gratuito · inema.club</p>
+</body>
+</html>

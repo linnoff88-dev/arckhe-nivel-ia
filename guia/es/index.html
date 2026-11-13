@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nivel-ia: ¿en qué peldaño está la IA en tu trabajo? Escalera AL1–AL5</title>
+<meta name="description" content="Kit abierto y gratuito para medir, tarea por tarea, en qué peldaño de la escalera AL1 a AL5 está la IA en tu trabajo, en papel o automático, con todas las conexiones registradas y cómo subir de nivel.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/nivel-ia/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/nivel-ia/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/nivel-ia/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+
+  table.n{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:10px}
+  table.n th,table.n td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+  table.n th{color:var(--amb);font-family:Sora}
+  /* gráficos comparativos (âmbar = agora/realidade, azul = antes/cenário, hachura = projeção) */
+  :root{--c-now:#BF8224;--c-old:#4D8FE0}
+  body.light{--c-now:#B9791D;--c-old:#2F6FC4}
+  .charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  @media(max-width:820px){.charts{grid-template-columns:1fr}}
+  .chart{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px}
+  .chart h3{margin:0 0 4px;font-family:Sora;font-size:1.02rem}
+  .chart .cap{color:var(--mut);font-size:.84rem;margin:0 0 14px}
+  .leg{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--mut);margin-top:10px}
+  .leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .sw-now{background:var(--c-now)} .sw-old{background:var(--c-old)}
+  .sw-proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now)}
+  .hb{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  .hb .g{font-size:.78rem;color:var(--mut);margin-top:6px}
+  .hb .row{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;align-items:center;font-size:.82rem}
+  .hb .row>span:first-child{color:var(--mut);line-height:1.25}
+  .hb .trk{position:relative;height:22px}
+  .bar{height:100%;border-radius:0 4px 4px 0;min-width:4px;display:flex;align-items:center}
+  .bar.now{background:var(--c-now)} .bar.old{background:var(--c-old)}
+  .bar.proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now)}
+  .bar b{position:absolute;left:calc(var(--w) + 8px);font-weight:600;font-size:.8rem;color:var(--txt);white-space:nowrap}
+  .vb{display:flex;align-items:flex-end;gap:6px;height:190px;border-bottom:1px solid var(--line);padding-top:22px}
+  .vb .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+  .vb .col .v{font-size:.74rem;font-weight:600;color:var(--txt);margin-bottom:3px}
+  .vb .col .b{width:100%;max-width:38px;border-radius:4px 4px 0 0;min-height:2px}
+  .vb .col .b.now{background:var(--c-now)} .vb .col .b.old{background:var(--c-old)}
+  .vb .col .b.proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now);border-bottom:none}
+  .vb .gap{flex:0 0 14px;align-self:center;color:var(--mut);text-align:center}
+  .vx{display:flex;gap:6px;font-size:.72rem;color:var(--mut);margin-top:6px}
+  .vx span{flex:1;text-align:center} .vx .gap{flex:0 0 14px}
+  .techhead{background:var(--bg2);border-top:3px solid var(--amb);padding:58px 0 8px}
+  .techhead h2{font-family:Sora;margin:.3em 0 0}
+  .techzone{background:var(--bg2)}
+
+  .degraus{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:end}
+  .dg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .dg:nth-child(1){min-height:210px}.dg:nth-child(2){min-height:240px}.dg:nth-child(3){min-height:270px}.dg:nth-child(4){min-height:300px}.dg:nth-child(5){min-height:330px}
+  .dg.top{border-color:var(--amb)}
+  .dg .al{font-family:Sora;font-weight:800;font-size:1.5rem;color:var(--amb)}
+  .dg h3{font-family:Sora;font-size:1rem;margin:.3em 0}
+  .dg p{margin:.3em 0;font-size:.9rem}
+  .dg .dex{color:var(--mut);font-size:.84rem;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+  @media(max-width:900px){.degraus{grid-template-columns:1fr}.dg{min-height:0!important}}
+  .passos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .ps{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column}
+  .ps .pt{font-family:Sora;font-weight:800;color:var(--amb);font-size:1.1rem}
+  .ps .pt span{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:2px 8px;margin:0 4px}
+  .ps h3{font-family:Sora;font-size:1.02rem;margin:.6em 0 .3em}
+  .ps p{font-size:.9rem;margin:.35em 0}
+  .ps .ok{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);color:var(--txt)}
+  .ps .ok b{color:var(--amb)}
+  @media(max-width:1000px){.passos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.passos{grid-template-columns:1fr}}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  @media(max-width:720px){.duo{grid-template-columns:1fr}}
+  .card.teto{border-color:#c2410c}.card.desce{border-color:var(--c-old)}
+  @media(max-width:600px){table.n{font-size:.8rem}table.n th,table.n td{padding:6px 5px}}
+  table.tnum td:not(:first-child),table.tnum th:not(:first-child){white-space:nowrap}
+  table.n td:first-child{overflow-wrap:break-word}
+  @media(max-width:600px){pre{white-space:pre-wrap;word-break:break-word}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🪜</span> nivel-ia</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#video">Video</a>
+    <a class="sec" href="#escada">La escalera</a>
+    <a class="sec" href="#subir">Cómo subir</a>
+    <a class="sec" href="#medir">Cómo medir</a>
+    <a class="sec" href="#caso">Caso real</a>
+    <a class="sec" href="#certificado">Certificado</a>
+    <a class="sec" href="#tecnico">Kit (técnico)</a>
+    <span class="lang"><a href="../">PT</a><a href="../en/">EN</a><a class="on" href="./">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/nivel-ia" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Kit abierto y gratuito · Escalera AL1–AL5</span>
+      <h1>¿Sabes en qué peldaño está la IA en tu <span class="amb">trabajo</span>?</h1>
+      <p class="lead">Casi todo el mundo cree que usa mucho la IA, pero no sabe decir qué tareas ya hace sola y cuáles todavía pasan por sus manos. La <strong>Escalera AL1–AL5</strong> mide esto tarea por tarea, en papel o automáticamente, y muestra qué tarea puede subir de peldaño ahora, antes de que le delegues demasiado a una IA que todavía comete errores, o sigas haciendo a mano algo que ya hace bien.</p>
+      <div class="cta">
+        <a class="btn" href="#escada">Entender en 5 minutos</a>
+        <a class="btn ghost" href="https://github.com/inematds/nivel-ia" target="_blank" rel="noopener">Ver en GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-es.jpg" alt="Banner de la Escalera de IA: en qué peldaño está la IA en cada una de tus tareas, de AL1 a AL5"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">En resumen</span>
+  <p>Sin medir, no sabes qué sigues haciendo a mano, qué ya hace sola la IA ni qué puertas le abriste. Este kit te da una regla de cinco peldaños, desde AL1 (tú lo haces solo) hasta AL5 (la IA funciona sola), y dos formas de medir: una hoja de papel, que sirve para cualquier persona y cualquier IA, y un programa que lee los registros de Claude Code y Codex (asistentes de IA que trabajan dentro de tu computadora) y anota cada conexión utilizada. Si solo usas ChatGPT u otra IA en el navegador, basta con la hoja. Al final, sabrás en qué peldaño está cada tarea, cuál puede subir ahora y cuándo bajar. Para empezar, solo tienes que imprimir la hoja.</p>
+  <figure style="margin:26px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-es.jpg" alt="Lo que incluye el kit: la escalera AL1 a AL5, hoja de papel, medidor automático, todas las conexiones, cómo subir de nivel y cuándo bajar" style="display:block;width:100%;height:auto"></figure>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <h2>En 2 minutos: ¿cuál es tu nivel de IA? (en portugués)</h2>
+  <p class="sub">Nei muestra la escalera AL1 a AL5 y su propia medición. El número del video (64%) salió de la regla del kit relogio-2027; la regla de este kit da 56,2% (mira el Caso real).</p>
+  <div style="aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line)"><iframe src="https://www.youtube-nocookie.com/embed/OO92qphODKE" title="En 2 minutos: ¿cuál es tu nivel de IA? (en portugués)" style="width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div></section>
+
+<section id="escada"><div class="wrap">
+  <h2>La escalera: cinco peldaños</h2>
+  <p class="sub">AL significa nivel de autonomía: cuánto hace la IA sin ti. El peldaño corresponde a <strong>una tarea</strong>, no a la persona ni a la IA. Puedes estar en AL5 para traducir subtítulos y en AL2 para responder a un cliente. Ejemplo en todos los peldaños: responder el correo electrónico de un cliente.</p>
+  <div class="degraus">
+    <div class="dg"><span class="al">AL1</span><h3>Tú lo haces solo</h3><p>La IA no interviene.</p><p class="dex">Lees, piensas, escribes y envías.</p></div>
+    <div class="dg"><span class="al">AL2</span><h3>La IA ayuda</h3><p>Tú preguntas, ella responde y tú lo haces.</p><p class="dex">Preguntas «¿cómo respondo esto?» y escribes la respuesta.</p></div>
+    <div class="dg"><span class="al">AL3</span><h3>La IA colabora</h3><p>Trabajan juntos, paso a paso. Tú guías cada paso.</p><p class="dex">La IA redacta el borrador contigo; tú lo ajustas y lo envías.</p></div>
+    <div class="dg"><span class="al">AL4</span><h3>La IA guía y tú revisas</h3><p>Ella lo prepara todo; tú lo verificas antes de que salga.</p><p class="dex">La respuesta queda lista; tú la lees, la apruebas y ella la envía.</p></div>
+    <div class="dg top"><span class="al">AL5</span><h3>La IA funciona sola</h3><p>Horario, regla y alarma, sin que intervengas.</p><p class="dex">Las preguntas rutinarias se responden solas; tú revisas el resumen y las excepciones.</p></div>
+  </div>
+  <div class="card" style="margin-top:22px"><h3>Si tienes dudas, responde tres preguntas</h3>
+    <p><b>1. ¿Intervino la IA?</b> No: AL1. &nbsp; <b>2. ¿Quién hizo el trabajo?</b> Tú, con su respuesta: AL2. Los dos, paso a paso: AL3. Ella, y tú verificaste antes de que saliera: AL4. &nbsp; <b>3. ¿Estabas presente?</b> No, funcionó sola: AL5.</p></div>
+</div></section>
+
+<section id="subir"><div class="wrap">
+  <h2>Cómo subir de nivel</h2>
+  <p class="sub">Una tarea a la vez, <strong>un peldaño a la vez</strong>. Cada vez que hagas la tarea, anota en la hoja la fecha, si la tarea es crítica, el peldaño en el que la hiciste y dos columnas de acierto: <b>¿Corregí?</b> (n = no tuve que corregir, p = corrección pequeña, g = corrección grande o la respuesta no ayudó) y <b>¿Error grave?</b> (s/n). Solo cuentan las correcciones grandes y los errores graves, y solo las veces del peldaño actual: si cambias de peldaño, el conteo vuelve a empezar. <strong>Tú decides</strong>: el informe verifica los cálculos y propone una de cuatro opciones: «puedes subir», «anota N veces más», «continúa en el peldaño» o «baja»; si no estás de acuerdo, tu decisión es la que cuenta, con el motivo anotado. Las cifras son un punto de partida.</p>
+  <div class="passos">
+    <div class="ps"><div class="pt"><span>AL1</span>→<span>AL2</span></div><h3>Empieza a preguntar</h3>
+      <p><b>Elige</b> una tarea que repitas al menos 3 veces al mes y que no incluya datos confidenciales.</p>
+      <p><b>Haz esto:</b> antes de hacerla a mano, pregunta a la IA cómo la haría y compara su forma con la tuya. Desde ese momento ya estás en AL2: anota AL2 en la hoja.</p>
+      <p class="ok"><b>Criterio:</b> ninguno. Preguntar implica poco riesgo; el conteo empieza en AL2.</p></div>
+    <div class="ps"><div class="pt"><span>AL2</span>→<span>AL3</span></div><h3>Da el contexto y trabajen juntos</h3>
+      <p><b>Señal:</b> copias la respuesta y siempre haces los mismos ajustes.</p>
+      <p><b>Haz esto:</b> escribe una vez el contexto fijo (quién es el cliente, el tono, buenos ejemplos, dónde están los archivos) y añádelo a la solicitud.</p>
+      <p class="ok"><b>Listo cuando</b>, de las últimas 10 veces, como máximo 1 haya requerido una corrección grande (g).</p></div>
+    <div class="ps"><div class="pt"><span>AL3</span>→<span>AL4</span></div><h3>Deja que la IA guíe y tú revisas</h3>
+      <p><b>Señal:</b> apruebas casi todo lo que propone sin cambiarlo.</p>
+      <p><b>Haz esto:</b> escribe una lista breve de verificación para definir qué significa «listo». La IA hace toda la tarea y se detiene antes de enviar, publicar o pagar. Tú verificas la lista y apruebas.</p>
+      <p class="ok"><b>Listo cuando</b>, de las últimas 20 veces, como máximo 2 hayan requerido una corrección grande.</p></div>
+    <div class="ps"><div class="pt"><span>AL4</span>→<span>AL5</span></div><h3>Ponla a funcionar sola, con una barrera de seguridad</h3>
+      <p><b>Antes de ponerla en marcha:</b> fija un horario, un límite de tiempo y de costo, una alarma en caso de error, un registro de todo lo que haga y una forma de volver a AL4 en un minuto.</p>
+      <p><b>Después:</b> revisa 3 resultados por semana y anótalos en la hoja.</p>
+      <p class="ok"><b>Listo cuando</b>, de las últimas 50 veces, como máximo 2 hayan requerido una corrección grande y ninguna haya tenido un error grave.</p></div>
+  </div>
+  <div class="duo">
+    <div class="card teto"><h3>🛑 Las tareas críticas se detienen en AL4</h3><p>Cuando un error puede causar un perjuicio público, financiero o de seguridad (publicar, dinero, servidores, clientes), la IA guía y tú revisas. No pasa a AL5. Marca «¿crítica? = s» en la hoja. Si la columna queda en blanco, el programa decide según las palabras del nombre de la tarea (publicar, post, cliente, pago, dinero, servidor, correo electrónico); lo que marques, s o n, tiene prioridad sobre las palabras.</p></div>
+    <div class="card desce"><h3>⬇️ Cuándo bajar un peldaño</h3><p><b>Un error grave</b> (se publicó algo incorrecto, se perdió un dato o se gastó dinero de más): baja de inmediato. <b>Tres correcciones grandes en las últimas 10 veces</b>: baja. Como para subir se admiten como máximo dos, las reglas nunca se contradicen. Si cambió la herramienta o el proceso, baja un peldaño por tu cuenta hasta volver a medir. Esto vale para cualquier peldaño, incluido AL5.</p></div>
+  </div>
+</div></section>
+
+<section id="medir"><div class="wrap">
+  <h2>Cómo medir: en papel o automáticamente</h2>
+  <p class="sub">Solo puedes subir lo que puedes ver. Sin registros, el peldaño es una suposición.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📝 En papel</h3><p>Una hoja para imprimir. Por cada tarea: fecha, tarea, si es crítica, peldaño (1 a 5), minutos, conexión utilizada (qué IA, programa, sitio web, carpeta), si hubo que corregir (n/p/g) y si hubo un error grave. Sirve para cualquier IA y es la única forma de contar AL1, que es lo que haces sin IA. <a href="https://inematds.github.io/nivel-ia/kit/ficha-papel.es.html" target="_blank" rel="noopener">Abrir la hoja para imprimir</a>.</p></div>
+    <div class="card"><h3>🤖 Automáticamente</h3><p>Para quienes usan Claude Code o Codex (asistentes de IA que trabajan dentro de la computadora). Un programa lee sus registros, pone cada conversación en un peldaño y anota todas las conexiones utilizadas: programas, sitios web, servicios externos, ayudantes de IA y recetas listas para usar (skills), con la primera y la última vez que se usaron. Puede funcionar solo todos los días. <a href="#guia">Cómo usarlo ↓</a></p></div>
+    <div class="card"><h3>🔗 Las mismas columnas</h3><p>El papel y el programa usan las mismas columnas. Empieza en papel hoy y, cuando quieras, pasa la hoja a una planilla: el informe combina ambas cosas, incluidas las conexiones que anotaste (ChatGPT, planilla, correo electrónico).</p></div>
+  </div>
+  <table class="n" style="margin-top:26px">
+    <tr><th>Pregunta</th><th>Dónde aparece</th></tr>
+    <tr><td>¿En qué peldaño está cada tarea?</td><td>«Suas tarefas» (Tus tareas) en el informe, o la columna degrau (peldaño) de la hoja</td></tr>
+    <tr><td>¿Qué ya funciona solo y ni lo recordaba?</td><td>AL5: sesiones sin conversación (horario, script, bot)</td></tr>
+    <tr><td>¿Qué puertas abrí para la IA?</td><td>«Conexões registradas» (Conexiones registradas), con la primera y la última vez de uso</td></tr>
+    <tr><td>¿Qué tarea puede subir o bajar ahora?</td><td>«Pode subir» (Puede subir) y «Descer um degrau» (Bajar un peldaño) en el informe, verificadas con las columnas de acierto de la hoja</td></tr>
+    <tr><td>¿La IA acertó?</td><td>Solo las columnas «corrigi?» y «erro grave?» de la hoja. El programa mide autonomía, no acierto.</td></tr>
+  </table>
+</div></section>
+
+<section id="caso"><div class="wrap">
+  <h2>Caso real: la escalera medida de Nei</h2>
+  <p class="sub">Nei Maldaner (INEMA) ejecutó el medidor con sus propios registros de los últimos 30 días, hasta el 12/11/2026: 16.228 sesiones de trabajo y 133.885 acciones de la IA. 1.057 sesiones fueron conversaciones con él; las demás se iniciaron mediante scripts, bots y tareas programadas. En el video del 12/11 mostró un 64%, medido con el kit <a href="https://inematds.github.io/relogio-2027/guia/" target="_blank" rel="noopener">relogio-2027</a>, que usa otra escala. Este kit cuenta como «funciona sola» solo la sesión iniciada por un script, bot o tarea programada con hasta 2 mensajes; si conversaste 3 veces o más, cuenta como conversación, aunque haya sido mediante la app o el bot. Con esta escala da un 56,2%. El número cambia según la escala y el intervalo de días: por eso la escala queda escrita y la medición se repite cada día.</p>
+  <div class="charts">
+    <div class="chart"><h3>La IA conduce el 56,2% del trabajo medido</h3><p class="cap">Parte del tiempo de trabajo con IA en cada peldaño (AL4 + AL5 = la IA conduce)</p>
+      <div class="hb">
+        <div class="row"><span>AL1 · tú solo</span><div class="trk"><div class="bar old" style="--w:0%;width:0%"><b>solo en la ficha</b></div></div></div>
+        <div class="row"><span>AL2 · ayuda</span><div class="trk"><div class="bar old" style="--w:3.3%;width:3.3%"><b>3,3%</b></div></div></div>
+        <div class="row"><span>AL3 · colabora</span><div class="trk"><div class="bar old" style="--w:40.5%;width:40.5%"><b>40,5%</b></div></div></div>
+        <div class="row"><span>AL4 · conduce</span><div class="trk"><div class="bar now" style="--w:28.2%;width:28.2%"><b>28,2%</b></div></div></div>
+        <div class="row"><span>AL5 · sola</span><div class="trk"><div class="bar now" style="--w:28%;width:28%"><b>28,0%</b></div></div></div>
+      </div>
+      <div class="leg"><span><i class="sw-now"></i>la IA conduce</span><span><i class="sw-old"></i>tú conduces</span></div>
+    </div>
+    <div class="chart"><h3>Por tarea: dónde está y cuál es el próximo peldaño</h3><p class="cap">Horas semanales de trabajo con IA (las sesiones en paralelo se suman)</p>
+      <table class="n tnum">
+        <tr><th>Tarea</th><th>h/sem</th><th>Peldaño</th><th>Próximo</th></tr>
+        <tr><td>Producir videos</td><td>59,0</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Crear guías, kits y sitios web</td><td>58,5</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Imágenes y diseño</td><td>13,8</td><td>AL5</td><td>en el tope</td></tr>
+        <tr><td>Publicar y difundir ⚠️</td><td>9,3</td><td>AL3</td><td>AL4 (tope)</td></tr>
+        <tr><td>Traducir contenido</td><td>5,5</td><td>AL5</td><td>en el tope</td></tr>
+        <tr><td>Investigar y resumir</td><td>5,2</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Crear cursos y clases</td><td>3,9</td><td>AL4</td><td>AL5</td></tr>
+      </table>
+      <p class="cap" style="margin-top:10px">Selección de 7 tareas del informe (se excluyen «Otras tareas», 40,7 h, y las tareas críticas pequeñas: «Mantener sistemas y bots», 2,2 h, «Correo y agenda», 0,4 h, y «Clientes y dinero», 0,3 h). ⚠️ = tarea crítica, que se detiene en AL4. El peldaño es el que más aparece en la tarea; «Publicar» todavía tiene un 28% del tiempo funcionando sola: el informe lo advierte, y ahí es donde se verifica si hay revisión, alarma y retorno.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:22px"><h3>🔗 8.039 conexiones registradas en 30 días</h3>
+    <p>7.696 programas y scripts, 292 sitios web, 23 recetas listas (skills), 19 servicios externos, 7 tipos de ayudante de IA (agentes) y 2 tipos de búsqueda en la web. Algunos de los más usados: generación de imágenes de Codex (5.231 sesiones, todas en solitario), git, que guarda las versiones de los archivos (774), ffmpeg, que monta videos (753), Metricool, que programa publicaciones en las redes sociales (299 sesiones, 271 en solitario), y la publicación en YouTube (197). Aquí no se incluyen los comandos de fondo (listar, copiar y mover archivos) ni las carpetas y archivos que abrió o modificó: esos solo aparecen en la hoja. Es la lista de las puertas que tiene la IA: cada una es algo que decidiste abrir, y el kit muestra cuándo se usó por primera y última vez.</p></div>
+</div></section>
+<section id="certificado"><div class="wrap">
+  <span class="chip">Certificado</span>
+  <h2>Muestra en qué escalón estás y cuánto has subido</h2>
+  <p class="sub">El kit convierte tus mediciones en un certificado de una página: el % del trabajo realizado por la IA, la escalera AL1 a AL5, las tareas principales con el siguiente escalón, tu evolución semana a semana y la proyección para 1, 3 y 6 meses. Tú eliges el período (30, 90 días o más). Es una página HTML: ábrela en cualquier navegador y conviértela en PDF con el botón “Guardar como PDF”, sin programas de imágenes.</p>
+  <figure style="margin:18px 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--line)"><img src="../assets/certificado-exemplo.jpg" alt="Ejemplo de certificado: 48,9% del trabajo realizado por la IA en 90 días, evolución del 11% al 61% y proyección" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="box"><p><b>Lo que demuestra y lo que no:</b> es una medición registrada a partir de los registros de tu propia máquina, no una evaluación oficial. Te sirve para mostrar tu situación y seguir la evolución de una medición a otra. En el ejemplo, Nei en 90 días: pasó del 11% al 61% del trabajo realizado por la IA. En ese período, los registros de Codex comienzan el 16/08 y los de Claude Code el 25/08.</p></div>
+<h3 style="margin-top:1.6em">Dos formas de ejecutarlo y qué pasa con tus datos</h3>
+  <p>El medidor es un programa en Python que se ejecuta solo en tu computadora: lee los registros de Claude Code y Codex que ya están en tu máquina, no se conecta a internet y guarda el resultado en la carpeta <code>registro/</code>. La diferencia está en quién lee el informe después.</p>
+  <div class="grid g3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))"><div class="card"><h3>🔒 A. Desde la terminal</h3><p>Ejecutas los comandos (<a href="#passo-certificado">paso a paso</a>) y abres el certificado en el navegador. Nada sale de tu computadora. <b>Usa esta forma si tus datos son confidenciales</b>: trabajo de clientes, contrato de confidencialidad, proyecto que no puede aparecer.</p></div><div class="card"><h3>💬 B. Pidiéndoselo a tu IA</h3><p>Claude Code o Codex ejecuta los mismos comandos y después lee el informe para resumírtelo. Esa lectura forma parte de la conversación, y la conversación pasa por el servidor del proveedor (Anthropic u OpenAI), como cualquier otra sesión tuya. El informe muestra los nombres de tus tareas y las conexiones utilizadas: programas, agentes, skills y sitios a los que accedió la IA. El texto de tus pedidos solo queda en <code>registro/sessoes.json</code>, y la IA no necesita abrir ese archivo. Estos nombres pueden revelar el nombre de un cliente o de un proyecto.</p></div></div>
+  <h3 style="margin-top:1.6em">Forma B, la más fácil: pídeselo a tu IA</h3>
+  <p>Abre <b>Claude Code</b> o <b>Codex</b> en tu computadora, pega el pedido de abajo (cambia el nombre) y espera unos minutos. Descarga el kit, mide, genera el certificado y lo abre en el navegador.</p>
+  <div class="box" style="user-select:all"><p>Descarga el kit https://github.com/inematds/nivel-ia en una carpeta nivel-ia (si ya existe, úsala), mide mis últimos 30 días con <code>python3 medir/nivel.py varrer --dias 30</code> y <code>python3 medir/nivel.py relatorio --lang es</code>, genera mi certificado con <code>python3 medir/certificado.py --nome "Tu Nombre" --lang es</code> y abre el certificado en el navegador. Al final, dime dónde quedaron el certificado y el informe y resume en 3 líneas qué resultado dio. No abras el archivo registro/sessoes.json ni envíes mis datos a ningún otro servicio ni sitio.</p></div>
+  <p class="mut">¿Quieres 90 días? Agrega al pedido: "mide 90 días en una carpeta aparte (<code>--registro /tmp/n90</code>), sin modificar el registro diario". Antes, ten en cuenta que Claude Code borra los registros de más de 30 días, a menos que aumentes <code>cleanupPeriodDays</code> en su configuración (p. ej., 365) y esperes a que se acumule el historial. Lo que ya se borró no se puede recuperar. Si los registros cubren menos días de los que pediste, el medidor lo avisa en el informe y en el certificado.</p>
+  <h3 style="margin-top:1.6em">Dónde quedan los archivos</h3>
+  <table class="t">
+    <tr><th>Archivo</th><th>Qué es</th></tr>
+    <tr><td><code>nivel-ia/registro/certificado-AAAA-MM-DD-es.html</code></td><td>El certificado. Ábrelo en el navegador y usa el botón "Guardar como PDF".</td></tr>
+    <tr><td><code>nivel-ia/registro/relatorio.md</code></td><td>El informe completo: escala, tareas, próximo nivel, quién puede subir, conexiones.</td></tr>
+    <tr><td><code>nivel-ia/registro/relatorio.json</code></td><td>Los mismos números en formato de datos (el certificado los lee de aquí).</td></tr>
+    <tr><td><code>nivel-ia/registro/sessoes.json</code></td><td>La medición sesión por sesión (queda solo en tu máquina, fuera de git).</td></tr>
+  </table>
+  <p class="mut">¿Prefieres hacerlo tú mismo, comando por comando? <a href="#passo-certificado">Paso a paso del certificado ↓</a></p>
+</div></section>
+
+<div id="tecnico" class="techhead"><div class="wrap">
+  <span class="chip">Parte técnica</span>
+  <h2>El kit: para quien quiere medir en su propia computadora</h2>
+  <p class="sub">No necesitas esta parte para entender lo anterior. La hoja de papel ya resuelve.</p>
+</div></div>
+<div class="techzone">
+
+<section id="oque"><div class="wrap">
+  <h2>Qué incluye el kit</h2>
+  <div class="grid g3">
+    <div class="card"><h3>🪜 ESCADA.md (en portugués)</h3><p>Los cinco peldaños, las tres preguntas, cómo subir cada peldaño, el límite de la tarea crítica y cuándo bajar.</p></div>
+    <div class="card"><h3>📝 Hoja de papel</h3><p><code>kit/ficha-papel.html</code> para imprimir (A4 horizontal) y <code>kit/papel-modelo.csv</code> para escribir, con las mismas columnas.</p></div>
+    <div class="card"><h3>🤖 Medidor</h3><p><code>medir/nivel.py</code>: lee los registros, clasifica cada sesión, combina la hoja, registra las conexiones y escribe el informe. Solo usa la biblioteca estándar de Python, sin red, sin API.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <h2>Cómo funciona</h2>
+  <div class="flow"><span>registros de Claude Code y Codex</span><span class="arr">→</span><span>escaneo</span><span class="arr">→</span><span>peldaño de cada sesión + conexiones</span><span class="arr">→</span><span>+ hoja de papel</span><span class="arr">→</span><span>informe</span><span class="arr">→</span><span>tú decides quién sube</span></div>
+  <table class="n" style="margin-top:22px">
+    <tr><th>Qué quedó en el registro</th><th>Peldaño</th></tr>
+    <tr><td>Sesión iniciada por un script, bot o horario (<code>claude -p</code>, <code>codex exec</code>) con hasta 2 mensajes; 3 o más = conversación</td><td>AL5</td></tr>
+    <tr><td>Solicitud tuya enviada por un bot (por ejemplo, si conversas con la IA por Telegram): la IA gestiona toda la solicitud y tú revisas el resultado</td><td>AL4</td></tr>
+    <tr><td>Conversación con 15 o más acciones de la IA por mensaje tuyo</td><td>AL4</td></tr>
+    <tr><td>De 5 a 14 acciones por mensaje tuyo</td><td>AL3</td></tr>
+    <tr><td>Menos de 5 acciones por mensaje tuyo (incluye una pregunta aislada)</td><td>AL2</td></tr>
+    <tr><td>Lo que haces sin IA</td><td>AL1 (solo en la hoja)</td></tr>
+  </table>
+  <p class="sub" style="margin-top:12px">Los límites están al inicio de <code>medir/nivel.py</code> (<code>LIMITE_AL4</code>, <code>LIMITE_AL3</code>). Las tareas se identifican mediante palabras de la primera solicitud de cada sesión; para usar las tuyas, copia <code>medir/tarefas.exemplo.json</code> a <code>medir/tarefas.json</code> y edítalo (cada línea: nombre de la tarea, si es crítica y palabras que la identifican). La subida y la bajada se verifican con la hoja: hasta 1 corrección grande en las últimas 10 veces para llegar a AL3, hasta 2 en 20 para AL4, hasta 2 en 50 y ningún error grave para llegar a AL5; 1 error grave o 3 correcciones grandes en las últimas 10 = bajar. Las carpetas y los archivos usados quedan solo en la hoja: el programa registra programas, sitios, servicios, ayudantes y skills.</p>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <h2>Requisitos previos</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Terminal + Python 3.9+</h3><p>Los comandos de abajo se escriben en la Terminal (en Mac: Aplicaciones › Utilidades › Terminal; en Linux: Ctrl+Alt+T). Python solo usa la biblioteca estándar; no hay que instalar nada. En Windows, usa WSL (Linux dentro de Windows).</p><pre><span class="k">python3</span> --version</pre></div>
+    <div class="card"><h3>git (o el ZIP)</h3><p>Para descargar el kit. Si no tienes git, descarga el ZIP: <a href="https://github.com/inematds/nivel-ia/archive/refs/heads/main.zip">nivel-ia-main.zip</a>, descomprímelo y abre la Terminal dentro de la carpeta.</p></div>
+    <div class="card"><h3>Claude Code o Codex</h3><p>El medidor lee <code>~/.claude/projects</code> y <code>~/.codex*/sessions</code>. Si no los tienes, usa solo la hoja: omite los pasos 2 y 4, haz el paso 5 y ejecuta el paso 3; el informe se generará solo con la hoja.</p></div>
+    <div class="card"><h3>systemd (opcional)</h3><p>El programador de Linux, para ejecutarse automáticamente todos los días a las 06:20.</p></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <h2>Guía de uso</h2>
+  <div class="step"><div class="b">1</div><div><h3>Descarga el kit</h3><p>Una carpeta, sin instalación. Si no tienes git, usa el ZIP de los requisitos previos.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/nivel-ia</span> && <span class="k">cd</span> nivel-ia</pre></div></div>
+  <div class="step"><div class="b">2</div><div><h3>Mide los últimos 30 días</h3><p>Lee los registros de esta computadora y guarda <code>registro/sessoes.json</code> (fuera de git).</p>
+<pre><span class="k">python3 medir/nivel.py varrer</span> --dias 30   <span class="c"># "16701 sessões (9820 Claude Code, 6881 Codex) em 30 dias"</span></pre></div></div>
+  <div class="step"><div class="b">3</div><div><h3>Lee el informe</h3><p>Escalera, tareas, próximo peldaño, quién puede subir o bajar y conexiones. Está en <code>registro/relatorio.md</code>. Las sesiones de fondo de otros programas se excluyen; por eso el informe cuenta un poco menos que el escaneo. Nota: el informe, la salida de los comandos y los nombres de las columnas de kit/papel-modelo.csv están en portugués (data, tarefa, nivel, minutos, conexao, corrigi, grave); el programa también acepta en la hoja los nombres en español (fecha, tarea, conexión) y sí.</p>
+<pre><span class="k">python3 medir/nivel.py relatorio --lang es</span>   <span class="c"># "A IA conduz **56.2%** do trabalho medido (AL4 + AL5)"</span></pre></div></div>
+  <div class="step"><div class="b">4</div><div><h3>Revisa todas las conexiones</h3><p>Cada programa, sitio, servicio, agente y skill, con el número de sesiones y la primera y la última vez.</p>
+<pre><span class="k">python3 medir/nivel.py conexoes</span></pre></div></div>
+  <div class="step"><div class="b">5</div><div><h3>Agrega la hoja de papel (y el AL1)</h3><p>Copia la plantilla a la carpeta <code>registro/</code>. Abre <code>registro/papel.csv</code> en una hoja de cálculo (Excel, LibreOffice o Google Sheets), escribe una línea por cada vez que hiciste la tarea y vuelve a guardarla como CSV. La fecha puede tener el formato dd/mm/aaaa o aaaa-mm-dd; los nombres de las columnas pueden ser los de la hoja impresa, en portugués, inglés o español. Después, comprueba el resultado: el programa te avisará si no entiende alguna línea o columna. El siguiente informe suma todo.</p>
+<pre><span class="k">cp</span> kit/papel-modelo.csv registro/papel.csv
+<span class="k">python3 medir/nivel.py papel</span>   <span class="c"># "5 linhas válidas em registro/papel.csv"</span></pre></div></div>
+  <div class="step"><div class="b">6</div><div><h3>Déjalo ejecutarse automáticamente todos los días</h3><p>Activa un temporizador a las 06:20 para medir y guardar el historial en <code>registro/historico.jsonl</code>.</p>
+<pre><span class="k">sh systemd/instalar.sh</span>   <span class="c"># deshacer: systemctl --user disable --now nivel-ia.timer</span></pre></div></div>
+  <div class="step"><div class="b">7</div><div><h3>Genera tu certificado</h3><p>Una página con tu escalón, la evolución semana a semana y la proyección. Abre el archivo en el navegador y usa “Guardar como PDF”. Para un período más largo (p. ej., 90 días), mide en una carpeta aparte, sin modificar el registro diario.</p>
+<pre><span class="k">python3</span> medir/certificado.py --nome <span class="s">"Tu Nombre"</span> --lang es   <span class="c"># guarda registro/certificado-AAAA-MM-DD-es.html</span>
+<span class="c"># 90 días:</span>
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 varrer --dias 90
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 relatorio --lang es
+<span class="k">python3</span> medir/certificado.py --nome <span class="s">"Tu Nombre"</span> --lang es --registro /tmp/n90</pre></div></div>
+  <div class="step"><div class="b">8</div><div><h3>Decide una vez por semana</h3><p>Elige UNA tarea para subir un peldaño según el criterio anterior, y baja el nivel de la que tuvo un error grave. Pruebas del kit: <code>python3 tests/run.py</code> (46 pruebas con registros falsos).</p></div></div>
+</div></section>
+
+<section id="passo-certificado"><div class="wrap">
+  <span class="chip">Certificado · paso a paso</span>
+  <h2>Del inicio al certificado en PDF</h2>
+  <p class="sub">Necesitas Linux o Mac (en Windows, usa WSL), Python 3.9 o posterior (<code>python3 --version</code>) y haber usado Claude Code o Codex en esta máquina, porque el certificado se genera a partir de sus registros. Si solo usas ChatGPT en el navegador, usa la ficha de papel.</p>
+  <div class="step"><div class="b">1</div><div><h3>Descarga el kit</h3><p>Sin git: descarga el ZIP (https://github.com/inematds/nivel-ia/archive/refs/heads/main.zip), descomprímelo y entra en la carpeta.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/nivel-ia</span>
+<span class="k">cd</span> nivel-ia</pre></div></div>
+  <div class="step"><div class="b">2</div><div><h3>Mide los últimos 30 días</h3><p>Lee los registros de Claude Code y Codex de esta máquina. No sale nada de la computadora.</p>
+<pre><span class="k">python3</span> medir/nivel.py varrer --dias 30</pre></div></div>
+  <div class="step"><div class="b">3</div><div><h3>Prepara el informe</h3><p>Guarda <code>registro/relatorio.md</code> (para leer) y <code>registro/relatorio.json</code> (para el certificado).</p>
+<pre><span class="k">python3</span> medir/nivel.py relatorio --lang es</pre></div></div>
+  <div class="step"><div class="b">4</div><div><h3>Genera el certificado</h3><p>Guarda <code>registro/certificado-AAAA-MM-DD-es.html</code> y muestra la ruta.</p>
+<pre><span class="k">python3</span> medir/certificado.py --nome <span class="s">"Tu Nombre"</span> --lang es</pre></div></div>
+  <div class="step"><div class="b">5</div><div><h3>Ábrelo y guárdalo como PDF</h3><p>En el navegador, haz clic en "Guardar em PDF / imprimir" y elige "Guardar como PDF". La hoja ya está en formato A4 apaisado.</p>
+<pre><span class="k">xdg-open</span> registro/certificado-*.html   <span class="c"># Linux</span>
+<span class="k">open</span> registro/certificado-*.html       <span class="c"># Mac</span></pre></div></div>
+  <div class="step"><div class="b">6</div><div><h3>Período más largo (opcional)</h3><p>Mide en una carpeta aparte para no tocar el registro diario. Solo llegará hasta donde la máquina guarde registros: Claude Code borra los de más de 30 días, a menos que hayas aumentado <code>cleanupPeriodDays</code>.</p>
+<pre><span class="k">python3</span> medir/nivel.py --registro /tmp/n90 varrer --dias 90
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 relatorio --lang es
+<span class="k">python3</span> medir/certificado.py --nome <span class="s">"Tu Nombre"</span> --lang es --registro /tmp/n90   <span class="c"># queda en /tmp/n90/</span></pre></div></div>
+  <div class="step"><div class="b">7</div><div><h3>Evolución a lo largo del tiempo (opcional)</h3><p>Mide automáticamente todos los días a las 06:20. Genera un certificado nuevo cuando quieras (paso 4): con más semanas, el gráfico y la proyección mejoran.</p>
+<pre><span class="k">sh</span> systemd/instalar.sh</pre></div></div>
+</div></section>
+
+<section id="limites"><div class="wrap">
+  <h2>Qué no ve la medición</h2>
+  <div class="grid g3">
+    <div class="card"><h3>AL1 y otras IA</h3><p>Lo que haces sin IA y lo que haces en ChatGPT desde el navegador no queda en los registros. Va en la hoja.</p></div>
+    <div class="card"><h3>Si acertó</h3><p>El peldaño indica cuánta libertad tuvo la IA, no si acertó. El acierto se registra en las columnas «¿Corregí?» y «¿Error grave?».</p></div>
+    <div class="card"><h3>Tiempo</h3><p>Es tiempo de trabajo con la IA; las sesiones en paralelo se suman. Sirve para comparar tareas, no para contar tus horas.</p></div>
+  </div>
+  <p class="sub" style="margin-top:14px">Privacidad: nada sale de la computadora. La primera solicitud de cada sesión se guarda de forma breve; las claves, los correos electrónicos y los números largos se reemplazan por <code>[oculto]</code>, y la carpeta <code>registro/</code> queda fuera de git.</p>
+</div></section>
+
+</div>
+
+<footer><div class="wrap">
+  <div class="pill">Python 3</div><div class="pill">sin red, sin API</div><div class="pill">hoja de papel</div>
+  <p style="margin-top:18px">nivel-ia · kit abierto y gratuito ·
+    <a href="https://github.com/inematds/nivel-ia">github.com/inematds/nivel-ia</a> ·
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a></p>
+</div></footer>
+<script>
+  (function(){
+    var KEY='nivel-ia-theme'; // troque nivel-ia pelo nome do projeto
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

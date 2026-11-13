@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AL1–AL5 Rung Tracker</title>
+<style>
+  @page { size: A4 landscape; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Sora", system-ui, sans-serif; color: #0c0c10; background: #fff; margin: 0; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { font-size: 12px; color: #444; margin: 0 0 10px; }
+  .escada { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
+  .degrau { border: 1.5px solid #0c0c10; border-radius: 6px; padding: 6px 8px; font-size: 11px; line-height: 1.35; }
+  .degrau b { display: block; font-size: 13px; }
+  .degrau:nth-child(5) { background: #FACC15; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #0c0c10; color: #fff; text-align: left; padding: 6px; font-weight: 600; }
+  td { border: 1px solid #999; height: 26px; padding: 2px 6px; }
+  .rodape { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 11px; margin-top: 10px; line-height: 1.4; }
+  .rodape div { border: 1px dashed #999; border-radius: 6px; padding: 6px 8px; }
+  .marca { font-size: 10px; color: #666; margin-top: 8px; }
+  @media print { body { padding: 0; } }
+</style>
+</head>
+<body>
+<h1>Rung tracker: which rung is each task on?</h1>
+<p class="sub">One row each time you do a task. Critical = an error causes public, financial, or security harm (publishing, a client, money, a server, email). When you change rungs, that task’s count starts over. These are the same columns used by the kit’s automatic tracker, for anyone who wants to enter the data later.</p>
+
+<div class="escada">
+  <div class="degrau"><b>AL1 · You do it yourself</b>AI is not involved.</div>
+  <div class="degrau"><b>AL2 · AI helps</b>You ask, AI answers, and you do it.</div>
+  <div class="degrau"><b>AL3 · AI collaborates</b>You work together step by step. You lead.</div>
+  <div class="degrau"><b>AL4 · AI leads</b>AI prepares everything, and you review it before it goes out.</div>
+  <div class="degrau"><b>AL5 · Runs on its own</b>Timer, rule, and alert, with no one in the middle.</div>
+</div>
+
+<table>
+  <thead><tr><th style="width:10%">Date<br><small>yyyy-mm-dd</small></th><th style="width:24%">Task</th><th style="width:7%">Critical?<br><small>y / n</small></th><th style="width:8%">Rung<br><small>1 to 5</small></th><th style="width:7%">Minutes</th><th style="width:20%">Connection used<br><small>which AI, program, website, email or folder</small></th><th style="width:13%">Fixed?<br><small>n = none · p = small fix · g = big fix or did not help</small></th><th style="width:11%">Serious error?<br><small>y / n</small></th></tr></thead>
+  <tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="rodape">
+  <div><b>Move up one rung</b> (one task at a time; you decide by looking at this tracker):<br>
+    AL1→AL2: No criteria; start asking AI and record AL2.<br>
+    AL2→AL3: In the last 10 times, no more than 1 with g.<br>
+    AL3→AL4: In the last 20 times, no more than 2 with g.<br>
+    AL4→AL5: In the last 50 times, no more than 2 with g and no serious errors; with a schedule, alert, and fallback. Critical tasks (publishing, a client, money, a server, email) stop at AL4.</div>
+  <div><b>Move down one rung</b> for that task:<br>
+    1 serious error (something went out wrong, data was lost, or money was spent when it shouldn’t have been),<br>
+    or 3 times with g in the last 10,<br>
+    or the tool or process changed.<br>
+    Record the reason. Moving down means the tracking system is working.</div>
+</div>
+<p class="marca">nivel-ia · free and open kit · inema.club</p>
+</body>
+</html>

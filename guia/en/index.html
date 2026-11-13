@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nivel-ia: what rung is AI on in your work? The AL1–AL5 ladder</title>
+<meta name="description" content="Free, open kit to measure, task by task, which rung of the AL1 to AL5 ladder AI is on in your work, on paper or automatically, with every connection logged and how to move up.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/nivel-ia/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/nivel-ia/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/nivel-ia/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+
+  table.n{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:10px}
+  table.n th,table.n td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+  table.n th{color:var(--amb);font-family:Sora}
+  /* gráficos comparativos (âmbar = agora/realidade, azul = antes/cenário, hachura = projeção) */
+  :root{--c-now:#BF8224;--c-old:#4D8FE0}
+  body.light{--c-now:#B9791D;--c-old:#2F6FC4}
+  .charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  @media(max-width:820px){.charts{grid-template-columns:1fr}}
+  .chart{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px}
+  .chart h3{margin:0 0 4px;font-family:Sora;font-size:1.02rem}
+  .chart .cap{color:var(--mut);font-size:.84rem;margin:0 0 14px}
+  .leg{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--mut);margin-top:10px}
+  .leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .sw-now{background:var(--c-now)} .sw-old{background:var(--c-old)}
+  .sw-proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now)}
+  .hb{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  .hb .g{font-size:.78rem;color:var(--mut);margin-top:6px}
+  .hb .row{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;align-items:center;font-size:.82rem}
+  .hb .row>span:first-child{color:var(--mut);line-height:1.25}
+  .hb .trk{position:relative;height:22px}
+  .bar{height:100%;border-radius:0 4px 4px 0;min-width:4px;display:flex;align-items:center}
+  .bar.now{background:var(--c-now)} .bar.old{background:var(--c-old)}
+  .bar.proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now)}
+  .bar b{position:absolute;left:calc(var(--w) + 8px);font-weight:600;font-size:.8rem;color:var(--txt);white-space:nowrap}
+  .vb{display:flex;align-items:flex-end;gap:6px;height:190px;border-bottom:1px solid var(--line);padding-top:22px}
+  .vb .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+  .vb .col .v{font-size:.74rem;font-weight:600;color:var(--txt);margin-bottom:3px}
+  .vb .col .b{width:100%;max-width:38px;border-radius:4px 4px 0 0;min-height:2px}
+  .vb .col .b.now{background:var(--c-now)} .vb .col .b.old{background:var(--c-old)}
+  .vb .col .b.proj{background:repeating-linear-gradient(45deg,var(--c-now) 0 3px,transparent 3px 7px);border:1px solid var(--c-now);border-bottom:none}
+  .vb .gap{flex:0 0 14px;align-self:center;color:var(--mut);text-align:center}
+  .vx{display:flex;gap:6px;font-size:.72rem;color:var(--mut);margin-top:6px}
+  .vx span{flex:1;text-align:center} .vx .gap{flex:0 0 14px}
+  .techhead{background:var(--bg2);border-top:3px solid var(--amb);padding:58px 0 8px}
+  .techhead h2{font-family:Sora;margin:.3em 0 0}
+  .techzone{background:var(--bg2)}
+
+  .degraus{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:end}
+  .dg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .dg:nth-child(1){min-height:210px}.dg:nth-child(2){min-height:240px}.dg:nth-child(3){min-height:270px}.dg:nth-child(4){min-height:300px}.dg:nth-child(5){min-height:330px}
+  .dg.top{border-color:var(--amb)}
+  .dg .al{font-family:Sora;font-weight:800;font-size:1.5rem;color:var(--amb)}
+  .dg h3{font-family:Sora;font-size:1rem;margin:.3em 0}
+  .dg p{margin:.3em 0;font-size:.9rem}
+  .dg .dex{color:var(--mut);font-size:.84rem;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+  @media(max-width:900px){.degraus{grid-template-columns:1fr}.dg{min-height:0!important}}
+  .passos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .ps{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column}
+  .ps .pt{font-family:Sora;font-weight:800;color:var(--amb);font-size:1.1rem}
+  .ps .pt span{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:2px 8px;margin:0 4px}
+  .ps h3{font-family:Sora;font-size:1.02rem;margin:.6em 0 .3em}
+  .ps p{font-size:.9rem;margin:.35em 0}
+  .ps .ok{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);color:var(--txt)}
+  .ps .ok b{color:var(--amb)}
+  @media(max-width:1000px){.passos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.passos{grid-template-columns:1fr}}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  @media(max-width:720px){.duo{grid-template-columns:1fr}}
+  .card.teto{border-color:#c2410c}.card.desce{border-color:var(--c-old)}
+  @media(max-width:600px){table.n{font-size:.8rem}table.n th,table.n td{padding:6px 5px}}
+  table.tnum td:not(:first-child),table.tnum th:not(:first-child){white-space:nowrap}
+  table.n td:first-child{overflow-wrap:break-word}
+  @media(max-width:600px){pre{white-space:pre-wrap;word-break:break-word}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🪜</span> nivel-ia</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#video">Video</a>
+    <a class="sec" href="#escada">The ladder</a>
+    <a class="sec" href="#subir">How to climb</a>
+    <a class="sec" href="#medir">How to measure</a>
+    <a class="sec" href="#caso">Real case</a>
+    <a class="sec" href="#certificado">Certificate</a>
+    <a class="sec" href="#tecnico">Kit (technical)</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/nivel-ia" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Free, open kit · AL1–AL5 ladder</span>
+      <h1>Do you know which rung AI is on in your <span class="amb">work</span>?</h1>
+      <p class="lead">Almost everyone thinks they use AI a lot, but can’t say which tasks it already handles on its own and which still pass through their hands. The <strong>AL1–AL5 ladder</strong> measures this task by task, on paper or automatically, and shows which task can move up a rung now, before you hand too much over to an AI that still makes mistakes, or keep doing by hand what it already does well.</p>
+      <div class="cta">
+        <a class="btn" href="#escada">Understand it in 5 minutes</a>
+        <a class="btn ghost" href="https://github.com/inematds/nivel-ia" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-en.jpg" alt="AI ladder banner: which rung AI is on for each of your tasks, from AL1 to AL5"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">In short</span>
+  <p>Without measuring, you don’t know what you still do by hand, what AI already does on its own, or which doors you’ve opened to it. This kit gives you a five-rung scale, from AL1 (you do it yourself) to AL5 (AI runs on its own), and two ways to measure: a paper sheet that works with any person and any AI, and a program that reads Claude Code and Codex logs (AI assistants that work on your computer) and records each connection used. If you only use ChatGPT or another AI in a browser, the sheet is enough. At the end, you’ll know which rung each task is on, which one can move up now, and when to move down. To get started, just print the sheet.</p>
+  <figure style="margin:26px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-en.jpg" alt="What the kit provides: the AL1 to AL5 ladder, paper sheet, automatic tracker, all connections, how to move up a level, and when to move down" style="display:block;width:100%;height:auto"></figure>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <h2>In 2 minutes: what is your AI level? (in Portuguese)</h2>
+  <p class="sub">Nei walks through the AL1 to AL5 ladder and his own measurement. The video's number (64%) came from the relogio-2027 kit's yardstick; this kit's yardstick gives 56.2% (see the Real case).</p>
+  <div style="aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line)"><iframe src="https://www.youtube-nocookie.com/embed/OO92qphODKE" title="In 2 minutes: what is your AI level? (in Portuguese)" style="width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div></section>
+
+<section id="escada"><div class="wrap">
+  <h2>The ladder: five rungs</h2>
+  <p class="sub">AL means autonomy level: how much AI does without you. The rung applies to <strong>one task</strong>, not to a person or an AI. You might be at AL5 for translating captions and AL2 for answering a customer. Example across all rungs: replying to a customer’s email.</p>
+  <div class="degraus">
+    <div class="dg"><span class="al">AL1</span><h3>You do it yourself</h3><p>AI isn’t involved.</p><p class="dex">You read, think, write, and send.</p></div>
+    <div class="dg"><span class="al">AL2</span><h3>AI helps</h3><p>You ask, it answers, you do the work.</p><p class="dex">You ask, “How should I reply to this?” and write the response.</p></div>
+    <div class="dg"><span class="al">AL3</span><h3>AI collaborates</h3><p>You work together, step by step. You guide each step.</p><p class="dex">AI writes a draft with you; you adjust and send it.</p></div>
+    <div class="dg"><span class="al">AL4</span><h3>AI leads, you review</h3><p>It prepares everything; you check before it goes out.</p><p class="dex">The response is ready; you read and approve it, then AI sends it.</p></div>
+    <div class="dg top"><span class="al">AL5</span><h3>AI runs on its own</h3><p>Schedule, rules, and alerts, with no one in the middle.</p><p class="dex">Routine questions are answered on their own; you review the summary and exceptions.</p></div>
+  </div>
+  <div class="card" style="margin-top:22px"><h3>When in doubt, ask three questions</h3>
+    <p><b>1. Was AI involved?</b> No: AL1. &nbsp; <b>2. Who did the work?</b> You, using its answer: AL2. Both of you, step by step: AL3. AI did it, and you checked before it went out: AL4. &nbsp; <b>3. Were you there?</b> No, it ran on its own: AL5.</p></div>
+</div></section>
+
+<section id="subir"><div class="wrap">
+  <h2>How to move up a level</h2>
+  <p class="sub">One task at a time, <strong>one rung at a time</strong>. Each time you do the task, record the date, whether it’s critical, the rung you worked at, and two quality columns on the sheet: <b>Fixed?</b> (n = no changes needed, p = small fix, g = big fix or the answer wasn’t helpful) and <b>Serious error?</b> (y/n). Only big fixes and serious errors count, and only the times at your current rung: when you change rungs, the count starts over. <strong>You decide</strong>: the report checks the calculations and gives one of four recommendations: “move up,” “record N more times,” “stay on this rung,” or “move down”; if you disagree, your decision stands, with the reason recorded. The numbers are a starting point.</p>
+  <div class="passos">
+    <div class="ps"><div class="pt"><span>AL1</span>→<span>AL2</span></div><h3>Start asking</h3>
+      <p><b>Choose</b> a task you repeat at least 3 times a month that doesn’t involve confidential data.</p>
+      <p><b>Do this:</b> before doing it by hand, ask AI how it would do it and compare its approach with yours. From that point on, you’re at AL2: record AL2 on the sheet.</p>
+      <p class="ok"><b>Ready when:</b> No criteria. Asking has low risk; tracking starts at AL2.</p></div>
+    <div class="ps"><div class="pt"><span>AL2</span>→<span>AL3</span></div><h3>Give it context and work together</h3>
+      <p><b>Signal:</b> You copy the answer and always make the same adjustments.</p>
+      <p><b>Do this:</b> write down the fixed context once (who the customer is, the tone, good examples, where the files are) and include it with your request.</p>
+      <p class="ok"><b>Ready when</b>, of the last 10 times, no more than 1 required a big fix (g).</p></div>
+    <div class="ps"><div class="pt"><span>AL3</span>→<span>AL4</span></div><h3>Let AI lead, then review</h3>
+      <p><b>Signal:</b> You approve almost everything it suggests without changes.</p>
+      <p><b>Do this:</b> write a short checklist defining what “ready” means. AI does the entire task and stops before sending, publishing, or paying. You check it against the list and approve.</p>
+      <p class="ok"><b>Ready when</b>, of the last 20 times, no more than 2 required a big fix.</p></div>
+    <div class="ps"><div class="pt"><span>AL4</span>→<span>AL5</span></div><h3>Let it run on its own, with safeguards</h3>
+      <p><b>Before you let it run:</b> set a schedule, time and cost limits, an error alert, a record of everything it does, and a way to return to AL4 in one minute.</p>
+      <p><b>Afterward:</b> review 3 results each week and record them on the sheet.</p>
+      <p class="ok"><b>Ready when</b>, of the last 50 times, no more than 2 required a big fix and none had a serious error.</p></div>
+  </div>
+  <div class="duo">
+    <div class="card teto"><h3>🛑 Critical tasks stop at AL4</h3><p>When an error could cause public, financial, or security harm (publishing, money, servers, customers), AI leads and you review. It doesn’t move to AL5. Mark “critical? = y” on the sheet. If the column is blank, the program decides based on words in the task name (publish, post, customer, payment, money, server, email); anything you mark, y or n, overrides the words.</p></div>
+    <div class="card desce"><h3>⬇️ When to move down a rung</h3><p><b>One serious error</b> (something incorrect went out, data was lost, or more was spent than intended): move down right away. <b>Three big fixes in the last 10 times</b>: move down. Since moving up allows at most two, the rules never conflict. If the tool or process changed, move down one rung on your own until you measure again. This applies at any rung, including AL5.</p></div>
+  </div>
+</div></section>
+
+<section id="medir"><div class="wrap">
+  <h2>How to measure: on paper or automatically</h2>
+  <p class="sub">You can only move up what you can see. Without a record, the rung is just a guess.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📝 On paper</h3><p>A sheet you can print. For each task, record the date, task, whether it’s critical, rung (1 to 5), minutes, connection used (which AI, program, website, or folder), whether you needed to make a correction (n/p/g), and whether there was a serious error. It works with any AI and is the only way to count AL1, the work you do without AI. <a href="https://inematds.github.io/nivel-ia/kit/ficha-papel.en.html" target="_blank" rel="noopener">Open the printable sheet</a>.</p></div>
+    <div class="card"><h3>🤖 Automatically</h3><p>For people who use Claude Code or Codex (AI assistants that work on your computer). A program reads their logs, assigns each conversation to a rung, and records every connection used: programs, websites, external services, AI helpers, and ready-made recipes (skills), with the first and last time each was used. It can run on its own every day. <a href="#guia">How to use ↓</a></p></div>
+    <div class="card"><h3>🔗 The same columns</h3><p>The paper sheet and program use the same columns. Start on paper today and enter the sheet into a spreadsheet whenever you’re ready: the report combines both, including connections you recorded (ChatGPT, spreadsheets, email).</p></div>
+  </div>
+  <table class="n" style="margin-top:26px">
+    <tr><th>Question</th><th>Where it appears</th></tr>
+    <tr><td>Which rung is each task on?</td><td>“Suas tarefas” (“Your tasks”) in the report, or the rung column on the sheet</td></tr>
+    <tr><td>What’s already running on its own that I’d forgotten about?</td><td>AL5: sessions without a conversation (schedule, script, bot)</td></tr>
+    <tr><td>Which doors have I opened to AI?</td><td>“Conexões registradas” (“Recorded connections”), with the first and last time each was used</td></tr>
+    <tr><td>Which task can move up or down now?</td><td>“Pode subir” (“Can move up”) and “Descer um degrau” (“Move down a rung”) in the report, checked against the sheet’s quality columns</td></tr>
+    <tr><td>Did AI get it right?</td><td>Only the sheet’s “corrigi?” (“Fixed?”) and “erro grave?” (“Serious error?”) columns. The program measures autonomy, not accuracy.</td></tr>
+  </table>
+</div></section>
+
+<section id="caso"><div class="wrap">
+  <h2>Real case: Nei’s measured ladder</h2>
+  <p class="sub">Nei Maldaner (INEMA) ran the meter on his own records from the last 30 days, through 11/12/2026: 16,228 work sessions and 133,885 AI actions. 1,057 sessions were conversations with him; the others were started by scripts, bots, and schedules. In the 12/11 video, he showed 64%, measured with the <a href="https://inematds.github.io/relogio-2027/guia/" target="_blank" rel="noopener">relogio-2027</a> kit, which uses a different yardstick. This kit counts as “runs on its own” only a session started by a script, bot, or schedule with up to 2 messages; if you exchanged 3 or more messages, it counts as a conversation, even if it was through the app or the bot. By this yardstick, it comes to 56.2%. The number changes with the yardstick and the time window: that’s why the yardstick is written down and the measurement is repeated every day.</p>
+  <div class="charts">
+    <div class="chart"><h3>AI leads 56.2% of the measured work</h3><p class="cap">Share of AI work time at each rung (AL4 + AL5 = AI leads)</p>
+      <div class="hb">
+        <div class="row"><span>AL1 · you alone</span><div class="trk"><div class="bar old" style="--w:0%;width:0%"><b>only on the sheet</b></div></div></div>
+        <div class="row"><span>AL2 · assistance</span><div class="trk"><div class="bar old" style="--w:3.3%;width:3.3%"><b>3.3%</b></div></div></div>
+        <div class="row"><span>AL3 · collaborates</span><div class="trk"><div class="bar old" style="--w:40.5%;width:40.5%"><b>40.5%</b></div></div></div>
+        <div class="row"><span>AL4 · leads</span><div class="trk"><div class="bar now" style="--w:28.2%;width:28.2%"><b>28.2%</b></div></div></div>
+        <div class="row"><span>AL5 · on its own</span><div class="trk"><div class="bar now" style="--w:28%;width:28%"><b>28.0%</b></div></div></div>
+      </div>
+      <div class="leg"><span><i class="sw-now"></i>AI leads</span><span><i class="sw-old"></i>you lead</span></div>
+    </div>
+    <div class="chart"><h3>By task: current rung and the next one</h3><p class="cap">Hours per week of AI work (parallel sessions are added together)</p>
+      <table class="n tnum">
+        <tr><th>Task</th><th>h/wk</th><th>Rung</th><th>Next</th></tr>
+        <tr><td>Produce videos</td><td>59.0</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Create guides, kits, and websites</td><td>58.5</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Images and design</td><td>13.8</td><td>AL5</td><td>at the cap</td></tr>
+        <tr><td>Publish and promote ⚠️</td><td>9.3</td><td>AL3</td><td>AL4 (cap)</td></tr>
+        <tr><td>Translate content</td><td>5.5</td><td>AL5</td><td>at the cap</td></tr>
+        <tr><td>Research and summarize</td><td>5.2</td><td>AL3</td><td>AL4</td></tr>
+        <tr><td>Create courses and lessons</td><td>3.9</td><td>AL4</td><td>AL5</td></tr>
+      </table>
+      <p class="cap" style="margin-top:10px">Excerpt covering 7 tasks from the report (excluding “Other tasks,” 40.7 h, and the small critical tasks: “Maintain systems and bots,” 2.2 h, “Email and calendar,” 0.4 h, and “Clients and money,” 0.3 h). ⚠️ = critical task, capped at AL4. The rung shown is the one that appears most often in the task; “Publish” still has 28% of its time running on its own: the report flags this, and that’s where you check for review, an alarm, and a way back.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:22px"><h3>🔗 8,039 connections recorded in 30 days</h3>
+    <p>7,696 programs and scripts, 292 websites, 23 ready-made recipes (skills), 19 external services, 7 types of AI helper (agents), and 2 types of web search. Some of the most used: Codex image generation (5,231 sessions, all on their own), git, which stores file versions (774), ffmpeg, which assembles video (753), Metricool, which schedules social media posts (299 sessions, 271 on their own), and YouTube publishing (197). This doesn’t include background commands (listing, copying, and moving files) or the folders and files it opened or changed: those appear only on the sheet. This is the list of doors the AI can access: each one is something you chose to open, and the kit shows when it was first and last used.</p></div>
+</div></section>
+<section id="certificado"><div class="wrap">
+  <span class="chip">Certificate</span>
+  <h2>Show which rung you are on and how far you have climbed</h2>
+  <p class="sub">The kit turns your measurements into a one-page certificate: the % of work conducted by AI, the AL1 to AL5 ladder, the main tasks with the next rung, your week-by-week progress, and the projection for 1, 3, and 6 months. You choose the period (30, 90 days, or more). It is an HTML page: open it in any browser and turn it into a PDF with the “Save as PDF” button, without image software.</p>
+  <figure style="margin:18px 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--line)"><img src="../assets/certificado-exemplo.jpg" alt="Certificate example: 48.9% of work conducted by AI in 90 days, progress from 11% to 61%, and projection" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="box"><p><b>What it proves, and what it does not:</b> it is a measurement recorded from your own machine’s records, not an official assessment. It lets you show your current standing and track progress from one measurement to the next. In the example, Nei over 90 days: he went from 11% to 61% of work conducted by AI. During that period, the Codex records start on Aug 16 and the Claude Code records on Aug 25.</p></div>
+  <h3 style="margin-top:1.6em">Two ways to run it, and what happens to your data</h3>
+  <p>The meter is a Python program that runs only on your computer: it reads the Claude Code and Codex records already on your machine, does not connect to the internet, and saves the result in the <code>registro/</code> folder. The difference is who reads the report afterward.</p>
+  <div class="grid g3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))"><div class="card"><h3>🔒 A. In the terminal</h3><p>You run the commands (<a href="#passo-certificado">step by step</a>) and open the certificate in your browser. Nothing leaves your computer. <b>Use this option if your data is confidential</b>: client work, an NDA, or a project that cannot be disclosed.</p></div><div class="card"><h3>💬 B. Ask your AI</h3><p>Claude Code or Codex runs the same commands and then reads the report to summarize it for you. That reading becomes part of the conversation, and the conversation goes through the provider’s server (Anthropic or OpenAI), like any other session. The report shows the names of your tasks and the connections used: programs, agents, skills, and sites the AI accessed. The text of your requests is stored only in <code>registro/sessoes.json</code>, and the AI does not need to open that file. These names may reveal the name of a client or project.</p></div></div>
+  <h3 style="margin-top:1.6em">Option B, the easiest: ask your AI</h3>
+  <p>Open <b>Claude Code</b> or <b>Codex</b> on your computer, paste the request below (replace the name), and wait a few minutes. It downloads the kit, measures your activity, generates the certificate, and opens it in your browser.</p>
+  <div class="box" style="user-select:all"><p>Download the kit from https://github.com/inematds/nivel-ia into a folder named nivel-ia (use it if it already exists), measure my last 30 days with <code>python3 medir/nivel.py varrer --dias 30</code> and <code>python3 medir/nivel.py relatorio --lang en</code>, generate my certificate with <code>python3 medir/certificado.py --nome "Your Name" --lang en</code>, and open the certificate in the browser. At the end, tell me where the certificate and report were saved and summarize the results in 3 lines. Do not open the file registro/sessoes.json and do not send my data to any other service or website.</p></div>
+  <p class="mut">Want 90 days? Add this to your request: "measure 90 days in a separate folder (<code>--registro /tmp/n90</code>), without changing the daily log". First, keep in mind: Claude Code deletes records older than 30 days unless you increase <code>cleanupPeriodDays</code> in its settings (e.g., to 365) and wait for the history to accumulate. Anything already deleted cannot be recovered. If the records cover fewer days than you requested, the meter will warn you in the report and certificate.</p>
+  <h3 style="margin-top:1.6em">Where the files are saved</h3>
+  <table class="t">
+    <tr><th>File</th><th>What it is</th></tr>
+    <tr><td><code>nivel-ia/registro/certificado-AAAA-MM-DD-en.html</code></td><td>The certificate. Open it in your browser and use the "Save as PDF" button.</td></tr>
+    <tr><td><code>nivel-ia/registro/relatorio.md</code></td><td>The full report: ladder, tasks, next step, who can advance, connections.</td></tr>
+    <tr><td><code>nivel-ia/registro/relatorio.json</code></td><td>The same numbers in data format (the certificate reads them from here).</td></tr>
+    <tr><td><code>nivel-ia/registro/sessoes.json</code></td><td>The session-by-session measurement (stored only on your machine, outside git).</td></tr>
+  </table>
+  <p class="mut">Prefer to do it yourself, one command at a time? <a href="#passo-certificado">Certificate step by step ↓</a></p>
+</div></section>
+
+<div id="tecnico" class="techhead"><div class="wrap">
+  <span class="chip">Technical section</span>
+  <h2>The kit: for those who want to measure on their own computer</h2>
+  <p class="sub">You don’t need this section to understand what came before. The paper sheet is enough.</p>
+</div></div>
+<div class="techzone">
+
+<section id="oque"><div class="wrap">
+  <h2>What’s in the kit</h2>
+  <div class="grid g3">
+    <div class="card"><h3>🪜 ESCADA.md (in Portuguese)</h3><p>The five rungs, the three questions, how to move up each rung, the cap for the critical task, and when to move down.</p></div>
+    <div class="card"><h3>📝 Paper sheet</h3><p><code>kit/ficha-papel.html</code> to print (landscape A4) and <code>kit/papel-modelo.csv</code> for typing, with the same columns.</p></div>
+    <div class="card"><h3>🤖 Meter</h3><p><code>medir/nivel.py</code>: reads the logs, classifies each session, combines the sheet, records connections, and writes the report. Python standard library only, no network, no API.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <h2>How it works</h2>
+  <div class="flow"><span>Claude Code and Codex logs</span><span class="arr">→</span><span>scan</span><span class="arr">→</span><span>each session’s rung + connections</span><span class="arr">→</span><span>+ paper sheet</span><span class="arr">→</span><span>report</span><span class="arr">→</span><span>you decide who moves up</span></div>
+  <table class="n" style="margin-top:22px">
+    <tr><th>What’s in the record</th><th>Rung</th></tr>
+    <tr><td>Session started by a script, bot, or schedule (<code>claude -p</code>, <code>codex exec</code>) with up to 2 messages; 3 or more = conversation</td><td>AL5</td></tr>
+    <tr><td>Your request sent by a bot (for example, if you talk to AI through Telegram): AI handles the entire request, and you review the result</td><td>AL4</td></tr>
+    <tr><td>Conversation with 15 or more AI actions per message from you</td><td>AL4</td></tr>
+    <tr><td>5 to 14 actions per message from you</td><td>AL3</td></tr>
+    <tr><td>Fewer than 5 actions per message from you (includes a standalone question)</td><td>AL2</td></tr>
+    <tr><td>What you do without AI</td><td>AL1 (sheet only)</td></tr>
+  </table>
+  <p class="sub" style="margin-top:12px">The thresholds are at the top of <code>medir/nivel.py</code> (<code>LIMITE_AL4</code>, <code>LIMITE_AL3</code>). Tasks are inferred from words in the first request of each session; to use your own, copy <code>medir/tarefas.exemplo.json</code> to <code>medir/tarefas.json</code> and edit it (each line: task name, whether it is critical, identifying words). Moving up and down is checked against the sheet: up to 1 big fix in the last 10 times to reach AL3, up to 2 in 20 for AL4, up to 2 in 50 and no serious errors for AL5; 1 serious error or 3 big fixes in the last 10 times = move down. Folders and files used are recorded only on the sheet: the program records programs, sites, services, helpers, and skills.</p>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <h2>Prerequisites</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Terminal + Python 3.9+</h3><p>Type the commands below in the Terminal (on Mac: Applications › Utilities › Terminal; on Linux: Ctrl+Alt+T). Python uses only the standard library, nothing to install. On Windows, use WSL (Linux inside Windows).</p><pre><span class="k">python3</span> --version</pre></div>
+    <div class="card"><h3>git (or the ZIP)</h3><p>To download the kit. Without git, download the ZIP: <a href="https://github.com/inematds/nivel-ia/archive/refs/heads/main.zip">nivel-ia-main.zip</a>, extract it, and open the Terminal inside the folder.</p></div>
+    <div class="card"><h3>Claude Code or Codex</h3><p>The meter reads <code>~/.claude/projects</code> and <code>~/.codex*/sessions</code>. Without them, use only the sheet: skip steps 2 and 4, do step 5, and run step 3; the report will include only the sheet.</p></div>
+    <div class="card"><h3>systemd (optional)</h3><p>The Linux scheduler, to run automatically every day at 06:20.</p></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <h2>How to use</h2>
+  <div class="step"><div class="b">1</div><div><h3>Download the kit</h3><p>One folder, no installation. Without git, use the ZIP from the prerequisites.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/nivel-ia</span> && <span class="k">cd</span> nivel-ia</pre></div></div>
+  <div class="step"><div class="b">2</div><div><h3>Measure the last 30 days</h3><p>Reads the logs on this machine and saves <code>registro/sessoes.json</code> (outside git).</p>
+<pre><span class="k">python3 medir/nivel.py varrer</span> --dias 30   <span class="c"># "16701 sessões (9820 Claude Code, 6881 Codex) em 30 dias"</span></pre></div></div>
+  <div class="step"><div class="b">3</div><div><h3>Read the report</h3><p>Ladder, tasks, next rung, who can move up or down, and connections. It’s saved in <code>registro/relatorio.md</code>. Background sessions from other programs are excluded, so the report counts slightly fewer than the scan. Note: the report, the command output and the column names of kit/papel-modelo.csv are in Portuguese (data, tarefa, nivel, minutos, conexao, corrigi, grave); the program also accepts the English names on the sheet (date, task, level, minutes, connection, fixed, serious) and y/yes.</p>
+<pre><span class="k">python3 medir/nivel.py relatorio --lang en</span>   <span class="c"># "A IA conduz **56.2%** do trabalho medido (AL4 + AL5)"</span></pre></div></div>
+  <div class="step"><div class="b">4</div><div><h3>See all connections</h3><p>Each program, site, service, agent, and skill, with the number of sessions and the first and last time it appeared.</p>
+<pre><span class="k">python3 medir/nivel.py conexoes</span></pre></div></div>
+  <div class="step"><div class="b">5</div><div><h3>Combine the paper sheet (and AL1)</h3><p>Copy the template to the <code>registro/</code> folder. Open <code>registro/papel.csv</code> in a spreadsheet (Excel, LibreOffice, or Google Sheets), enter one row for each time you did the task, and save it again as CSV. Dates can be dd/mm/yyyy or yyyy-mm-dd; column names can match the printed sheet in Portuguese, English, or Spanish. Then check: the program will warn you if it can’t understand a row or column. The next report will add everything together.</p>
+<pre><span class="k">cp</span> kit/papel-modelo.csv registro/papel.csv
+<span class="k">python3 medir/nivel.py papel</span>   <span class="c"># "5 linhas válidas em registro/papel.csv"</span></pre></div></div>
+  <div class="step"><div class="b">6</div><div><h3>Run automatically every day</h3><p>Turns on a timer at 06:20 that measures and saves the history in <code>registro/historico.jsonl</code>.</p>
+<pre><span class="k">sh systemd/instalar.sh</span>   <span class="c"># undo: systemctl --user disable --now nivel-ia.timer</span></pre></div></div>
+  <div class="step"><div class="b">7</div><div><h3>Generate your certificate</h3><p>A page with your rung, week-by-week progress, and projection. Open the file in a browser and use “Save as PDF”. For a longer period (e.g., 90 days), measure in a separate folder without changing the daily record.</p>
+<pre><span class="k">python3</span> medir/certificado.py --nome <span class="s">"Your Name"</span> --lang en   <span class="c"># saves registro/certificado-AAAA-MM-DD-en.html</span>
+<span class="c"># 90 days:</span>
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 varrer --dias 90
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 relatorio --lang en
+<span class="k">python3</span> medir/certificado.py --nome <span class="s">"Your Name"</span> --lang en --registro /tmp/n90</pre></div></div>
+  <div class="step"><div class="b">8</div><div><h3>Decide once a week</h3><p>Choose ONE task to move up a rung using the criterion above, and move down the one with a serious mistake. Kit tests: <code>python3 tests/run.py</code> (46 tests with fake records).</p></div></div>
+</div></section>
+
+<section id="passo-certificado"><div class="wrap">
+  <span class="chip">Certificate · step by step</span>
+  <h2>From scratch to a PDF certificate</h2>
+  <p class="sub">You need Linux or Mac (on Windows, use WSL), Python 3.9 or newer (<code>python3 --version</code>), and you must have used Claude Code or Codex on this machine, because the certificate is generated from their logs. If you only use ChatGPT in a browser, use the paper form.</p>
+  <div class="step"><div class="b">1</div><div><h3>Download the kit</h3><p>Without git: download the ZIP (https://github.com/inematds/nivel-ia/archive/refs/heads/main.zip), extract it, and enter the folder.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/nivel-ia</span>
+<span class="k">cd</span> nivel-ia</pre></div></div>
+  <div class="step"><div class="b">2</div><div><h3>Measure the last 30 days</h3><p>Reads the Claude Code and Codex logs on this machine. Nothing leaves your computer.</p>
+<pre><span class="k">python3</span> medir/nivel.py varrer --dias 30</pre></div></div>
+  <div class="step"><div class="b">3</div><div><h3>Build the report</h3><p>Writes <code>registro/relatorio.md</code> (for reading) and <code>registro/relatorio.json</code> (for the certificate).</p>
+<pre><span class="k">python3</span> medir/nivel.py relatorio --lang en</pre></div></div>
+  <div class="step"><div class="b">4</div><div><h3>Generate the certificate</h3><p>Writes <code>registro/certificado-AAAA-MM-DD-en.html</code> and shows the path.</p>
+<pre><span class="k">python3</span> medir/certificado.py --nome <span class="s">"Your Name"</span> --lang en</pre></div></div>
+  <div class="step"><div class="b">5</div><div><h3>Open and save as PDF</h3><p>In your browser, click "Save as PDF / print" and choose "Save as PDF". The page is already set to landscape A4.</p>
+<pre><span class="k">xdg-open</span> registro/certificado-*.html   <span class="c"># Linux</span>
+<span class="k">open</span> registro/certificado-*.html       <span class="c"># Mac</span></pre></div></div>
+  <div class="step"><div class="b">6</div><div><h3>Longer period (optional)</h3><p>Measure into a separate folder so you don't change the daily log. It can only go back as far as the machine keeps logs: Claude Code deletes logs older than 30 days unless you have increased <code>cleanupPeriodDays</code>.</p>
+<pre><span class="k">python3</span> medir/nivel.py --registro /tmp/n90 varrer --dias 90
+<span class="k">python3</span> medir/nivel.py --registro /tmp/n90 relatorio --lang en
+<span class="k">python3</span> medir/certificado.py --nome <span class="s">"Your Name"</span> --lang en --registro /tmp/n90   <span class="c"># saved in /tmp/n90/</span></pre></div></div>
+  <div class="step"><div class="b">7</div><div><h3>Track progress over time (optional)</h3><p>Measures automatically every day at 06:20. Generate a new certificate whenever you want (step 4): with more weeks of data, the chart and projection improve.</p>
+<pre><span class="k">sh</span> systemd/instalar.sh</pre></div></div>
+</div></section>
+
+<section id="limites"><div class="wrap">
+  <h2>What the measurement doesn’t see</h2>
+  <div class="grid g3">
+    <div class="card"><h3>AL1 and other AIs</h3><p>What you do without AI and what you do in ChatGPT in a browser aren’t in the logs. Record them on the sheet.</p></div>
+    <div class="card"><h3>Accuracy</h3><p>The rung shows how much freedom AI had, not whether it got things right. Accuracy is tracked in the “Fixed?” and “Serious error?” columns.</p></div>
+    <div class="card"><h3>Time</h3><p>This is time spent working with AI; parallel sessions are added together. Use it to compare tasks, not to count your hours.</p></div>
+  </div>
+  <p class="sub" style="margin-top:14px">Privacy: nothing leaves your machine. The first request in each session is saved briefly, with keys, email addresses, and long numbers replaced by <code>[oculto]</code>, and the <code>registro/</code> folder stays outside git.</p>
+</div></section>
+
+</div>
+
+<footer><div class="wrap">
+  <div class="pill">Python 3</div><div class="pill">no network, no API</div><div class="pill">paper sheet</div>
+  <p style="margin-top:18px">nivel-ia · open and free kit ·
+    <a href="https://github.com/inematds/nivel-ia">github.com/inematds/nivel-ia</a> ·
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a></p>
+</div></footer>
+<script>
+  (function(){
+    var KEY='nivel-ia-theme'; // troque nivel-ia pelo nome do projeto
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

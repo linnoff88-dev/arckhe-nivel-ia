@@ -1,0 +1,283 @@
+{
+ "nota": "Exemplo real agregado: medição do trabalho do Nei Maldaner (INEMA) nos últimos 30 dias até a data. Só totais: sem pedidos, pastas nem sites.",
+ "gerado_em": "2026-11-12T23:28:02-03:00",
+ "dias": 30,
+ "escada": {
+  "AL1": 0.0,
+  "AL2": 3.3,
+  "AL3": 40.5,
+  "AL4": 28.2,
+  "AL5": 28.0
+ },
+ "parte_ia": 56.2,
+ "fontes": {
+  "claude": 9398,
+  "codex": 6830,
+  "conversas": 1057,
+  "sozinhas": 15171,
+  "acoes": 133885,
+  "externos": 5909,
+  "papel": 0
+ },
+ "tarefas": [
+  {
+   "tarefa": "Produzir vídeos",
+   "horas_semana": 59.0,
+   "vezes": 2819,
+   "nivel": "AL3",
+   "critica": false,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 47,
+    "AL4": 36,
+    "AL5": 15,
+    "AL2": 2
+   }
+  },
+  {
+   "tarefa": "Criar guias, kits e sites",
+   "horas_semana": 58.5,
+   "vezes": 1760,
+   "nivel": "AL3",
+   "critica": false,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 41,
+    "AL4": 29,
+    "AL5": 27,
+    "AL2": 3
+   }
+  },
+  {
+   "tarefa": "Outras tarefas",
+   "horas_semana": 40.7,
+   "vezes": 3082,
+   "nivel": "AL3",
+   "critica": false,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 35,
+    "AL5": 34,
+    "AL4": 25,
+    "AL2": 6
+   }
+  },
+  {
+   "tarefa": "Imagens e design",
+   "horas_semana": 13.8,
+   "vezes": 2598,
+   "nivel": "AL5",
+   "critica": false,
+   "proximo": null,
+   "mistura": {
+    "AL5": 74,
+    "AL3": 21,
+    "AL4": 5,
+    "AL2": 0
+   }
+  },
+  {
+   "tarefa": "Publicar e divulgar",
+   "horas_semana": 9.3,
+   "vezes": 1266,
+   "nivel": "AL3",
+   "critica": true,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 38,
+    "AL4": 33,
+    "AL5": 28,
+    "AL2": 1
+   }
+  },
+  {
+   "tarefa": "Traduzir conteúdo",
+   "horas_semana": 5.5,
+   "vezes": 4422,
+   "nivel": "AL5",
+   "critica": false,
+   "proximo": null,
+   "mistura": {
+    "AL5": 69,
+    "AL3": 29,
+    "AL2": 2
+   }
+  },
+  {
+   "tarefa": "Pesquisar e resumir",
+   "horas_semana": 5.2,
+   "vezes": 182,
+   "nivel": "AL3",
+   "critica": false,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 79,
+    "AL2": 12,
+    "AL4": 7,
+    "AL5": 2
+   }
+  },
+  {
+   "tarefa": "Criar cursos e aulas",
+   "horas_semana": 3.9,
+   "vezes": 36,
+   "nivel": "AL4",
+   "critica": false,
+   "proximo": "AL5",
+   "mistura": {
+    "AL4": 60,
+    "AL3": 39,
+    "AL5": 2
+   }
+  },
+  {
+   "tarefa": "Manter sistemas e bots",
+   "horas_semana": 2.2,
+   "vezes": 47,
+   "nivel": "AL4",
+   "critica": true,
+   "proximo": null,
+   "mistura": {
+    "AL4": 54,
+    "AL3": 35,
+    "AL2": 9,
+    "AL5": 2
+   }
+  },
+  {
+   "tarefa": "E-mail e agenda",
+   "horas_semana": 0.4,
+   "vezes": 5,
+   "nivel": "AL3",
+   "critica": true,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 72,
+    "AL4": 28
+   }
+  },
+  {
+   "tarefa": "Clientes e dinheiro",
+   "horas_semana": 0.3,
+   "vezes": 11,
+   "nivel": "AL3",
+   "critica": true,
+   "proximo": "AL4",
+   "mistura": {
+    "AL3": 89,
+    "AL5": 11
+   }
+  }
+ ],
+ "conexoes_total": 8039,
+ "conexoes_por_tipo": {
+  "serviço": 19,
+  "programa": 7696,
+  "site": 292,
+  "web": 2,
+  "agente": 7,
+  "skill": 23
+ },
+ "conexoes_top": [
+  {
+   "conexao": "serviço:codex image_gen__imagegen",
+   "sessoes": 5231,
+   "sozinha": 5231
+  },
+  {
+   "conexao": "serviço:codex view_image",
+   "sessoes": 1403,
+   "sozinha": 1395
+  },
+  {
+   "conexao": "programa:git",
+   "sessoes": 774,
+   "sozinha": 134
+  },
+  {
+   "conexao": "programa:ffmpeg",
+   "sessoes": 753,
+   "sozinha": 226
+  },
+  {
+   "conexao": "programa:curl",
+   "sessoes": 550,
+   "sozinha": 131
+  },
+  {
+   "conexao": "serviço:plugin_context-mode_context-mode",
+   "sessoes": 341,
+   "sozinha": 96
+  },
+  {
+   "conexao": "programa:codex",
+   "sessoes": 332,
+   "sozinha": 46
+  },
+  {
+   "conexao": "programa:gh",
+   "sessoes": 323,
+   "sozinha": 23
+  },
+  {
+   "conexao": "serviço:metricool-inematds",
+   "sessoes": 299,
+   "sozinha": 271
+  },
+  {
+   "conexao": "agente:general-purpose",
+   "sessoes": 246,
+   "sozinha": 4
+  },
+  {
+   "conexao": "programa:yt-pubx",
+   "sessoes": 197,
+   "sozinha": 18
+  },
+  {
+   "conexao": "skill:atualiza-portal",
+   "sessoes": 190,
+   "sozinha": 7
+  },
+  {
+   "conexao": "skill:postar-telegram",
+   "sessoes": 134,
+   "sozinha": 0
+  },
+  {
+   "conexao": "skill:session-handoff",
+   "sessoes": 110,
+   "sozinha": 0
+  },
+  {
+   "conexao": "skill:projetos-landing-guia",
+   "sessoes": 111,
+   "sozinha": 0
+  },
+  {
+   "conexao": "agente:geral",
+   "sessoes": 94,
+   "sozinha": 39
+  },
+  {
+   "conexao": "skill:r7ex",
+   "sessoes": 63,
+   "sozinha": 1
+  },
+  {
+   "conexao": "serviço:metricool-pub2",
+   "sessoes": 53,
+   "sozinha": 53
+  },
+  {
+   "conexao": "serviço:codex sleep",
+   "sessoes": 29,
+   "sozinha": 23
+  },
+  {
+   "conexao": "skill:prime",
+   "sessoes": 25,
+   "sozinha": 0
+  }
+ ]
+}

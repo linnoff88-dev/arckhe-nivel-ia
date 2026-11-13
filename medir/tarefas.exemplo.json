@@ -1,0 +1,116 @@
+[
+ [
+  "Traduzir conteúdo",
+  false,
+  [
+   "traduz",
+   "translate",
+   "espanhol",
+   "inglês",
+   "spanish",
+   "english"
+  ]
+ ],
+ [
+  "Produzir vídeos",
+  false,
+  [
+   "vídeo",
+   "video",
+   "reel",
+   "short",
+   "avatar",
+   "roteiro",
+   "youtu",
+   "legenda"
+  ]
+ ],
+ [
+  "Publicar e divulgar",
+  true,
+  [
+   "publica",
+   "telegram",
+   "postar",
+   "portal",
+   "instagram",
+   "tiktok",
+   "metricool"
+  ]
+ ],
+ [
+  "Criar cursos e aulas",
+  false,
+  [
+   "curso",
+   "aula",
+   "trilha",
+   "módulo"
+  ]
+ ],
+ [
+  "Criar guias, kits e sites",
+  false,
+  [
+   "guia",
+   "kit",
+   "repo",
+   "projeto",
+   "landing",
+   "site",
+   "página"
+  ]
+ ],
+ [
+  "Pesquisar e resumir",
+  false,
+  [
+   "resum",
+   "pesquis",
+   "analis",
+   "notícia",
+   "artigo",
+   "relatório",
+   "classifi"
+  ]
+ ],
+ [
+  "Imagens e design",
+  false,
+  [
+   "imagem",
+   "thumb",
+   "capa",
+   "banner",
+   "logo",
+   "design"
+  ]
+ ],
+ [
+  "Manter sistemas e bots",
+  true,
+  [
+   "bot",
+   "servidor",
+   "vps",
+   "timer",
+   "painel",
+   "erro",
+   "falha",
+   "deploy",
+   "backup"
+  ]
+ ],
+ [
+  "E-mail e agenda",
+  true,
+  [
+   "e-mail",
+   "email",
+   "gmail",
+   "agenda",
+   "calendar",
+   "reunião"
+  ]
+ ]
+]
